@@ -4,12 +4,6 @@ import (
 	"bufio"
 	"bytes"
 	"fmt"
-	"github.com/Songmu/wrapcommander"
-	fatihColor "github.com/fatih/color"
-	"github.com/kardianos/osext"
-	"github.com/kohkimakimoto/essh/support/color"
-	"github.com/kohkimakimoto/essh/support/helper"
-	"github.com/yuin/gopher-lua"
 	"io"
 	"io/ioutil"
 	"os"
@@ -20,6 +14,13 @@ import (
 	"sync"
 	"syscall"
 	"text/template"
+
+	"github.com/Songmu/wrapcommander"
+	fatihColor "github.com/fatih/color"
+	"github.com/kardianos/osext"
+	"github.com/kohkimakimoto/essh/support/color"
+	"github.com/kohkimakimoto/essh/support/helper"
+	lua "github.com/yuin/gopher-lua"
 )
 
 // system configurations.
@@ -47,6 +48,7 @@ var (
 	allFlag     bool
 	tagsFlag    bool
 	tasksFlag   bool
+	evalFlag    bool
 	genFlag     bool
 	globalFlag  bool
 
@@ -99,6 +101,7 @@ func initResources() {
 	allFlag = false
 	tagsFlag = false
 	tasksFlag = false
+	evalFlag = false
 	genFlag = false
 	globalFlag = false
 	zshCompletionModeFlag = false
@@ -222,6 +225,8 @@ func Run(osArgs []string) (exitStatus int) {
 			allFlag = true
 		} else if arg == "--tasks" {
 			tasksFlag = true
+		} else if arg == "--eval" {
+			evalFlag = true
 		} else if arg == "--select" {
 			if len(osArgs) < 2 {
 				printError("--select reguires an argument.")
@@ -490,7 +495,7 @@ func Run(osArgs []string) (exitStatus int) {
 		printError(err)
 		return ExitErr
 	}
-	
+
 	defer func() {
 		os.Remove(tmpFile.Name())
 
@@ -498,9 +503,9 @@ func Run(osArgs []string) (exitStatus int) {
 			fmt.Printf("[essh debug] deleted config file: %s \n", tmpFile.Name())
 		}
 	}()
-	
+
 	temporarySSHConfigFile := tmpFile.Name()
-	tmpFile.Close();
+	tmpFile.Close()
 
 	if debugFlag {
 		fmt.Printf("[essh debug] generated config file: %s \n", temporarySSHConfigFile)
@@ -739,6 +744,44 @@ func Run(osArgs []string) (exitStatus int) {
 			}
 		}
 		tb.Render()
+
+		return
+	}
+
+	// only eval lua code
+	if evalFlag {
+
+		var code string = "print('No Lua code is passed')"
+		//lua code can be passed as arguments, standard input, or env variable ESSH_EVAL
+		if os.Getenv("ESSH_EVAL") != "" {
+			code = os.Getenv("ESSH_EVAL")
+			// check if code is passed as standard input including all code
+		} else if len(args) == 0 {
+			stdin := bufio.NewReader(os.Stdin)
+			code_buffer, err := io.ReadAll(stdin)
+
+			if err != nil {
+				printError(err)
+				return ExitErr
+			}
+			code = string(code_buffer)
+			// check if code is passed as arguments
+		} else if len(args) > 0 {
+			code = strings.Join(args, "\n")
+		}
+
+		//print code before eval
+		if debugFlag {
+			fmt.Println("[essh debug] lua code to be executed:")
+			fmt.Println(code)
+			fmt.Println("[essh debug] end of lua code")
+			fmt.Println("[essh debug] executing lua code:")
+		}
+
+		if err := L.DoString(code); err != nil {
+			printError(err)
+			return ExitErr
+		}
 
 		return
 	}
@@ -1592,6 +1635,7 @@ Options:
   --filter <tag|host>           (Using with --hosts option) Filter selected hosts with tags or hosts.
   --ssh-config                  (Using with --hosts option) Output selected hosts as ssh_config format.
   --tasks                       List tasks.
+  --eval                        Evaluate lua code.
   --all                         (Using with --hosts or --tasks option) Show all that includes hidden objects.
   --tags                        List tags.
   --quiet                       (Using with --hosts, --tasks or --tags option) Show only names. 
@@ -1742,6 +1786,7 @@ _essh_options() {
         '--hosts:List hosts.'
         '--tags:List tags.'
         '--tasks:List tasks.'
+		'--eval:Evaluate lua script.'
         '--debug:Output debug log.'
         '--global:Force using global config.'
         '--exec:Execute commands with the hosts.'
@@ -1985,6 +2030,7 @@ _essh_exec_options() {
     local -a __essh_options
     __essh_options=(
         '--debug:Output debug log.'
+		'--eval:Evaluate lua script.'
         '--backend:Run the commands on local or remote hosts.'
         '--target:Target hosts to run the commands.'
         '--filter:Filter target hosts with tags or hosts.'
@@ -2014,6 +2060,7 @@ _essh_options() {
         --hosts
         --tags
         --tasks
+		--eval
         --debug
         --exec
         --zsh-completion

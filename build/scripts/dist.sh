@@ -27,7 +27,7 @@ echo "COMMIT_HASH: $COMMIT_HASH"
 
 gox \
     -os="linux darwin windows" \
-    -arch="amd64" \
+    -arch="amd64 arm64" \
     -ldflags=" -w \
         -X github.com/kohkimakimoto/$PRODUCT_NAME/$PRODUCT_NAME.CommitHash=$COMMIT_HASH \
         -X github.com/kohkimakimoto/$PRODUCT_NAME/$PRODUCT_NAME.Version=$PRODUCT_VERSION" \
@@ -37,12 +37,12 @@ gox \
 echo "Packaging to zip archives..."
 
 cd "$outputs_dir/dist"
-echo "Packaging darwin binaries" | indent
-mv ${PRODUCT_NAME}_darwin_amd64 ${PRODUCT_NAME} && zip ${PRODUCT_NAME}_darwin_amd64.zip ${PRODUCT_NAME}  | indent && rm ${PRODUCT_NAME}
-echo "Packaging linux binaries" | indent
-mv ${PRODUCT_NAME}_linux_amd64 ${PRODUCT_NAME} && zip ${PRODUCT_NAME}_linux_amd64.zip ${PRODUCT_NAME}  | indent && rm ${PRODUCT_NAME}
-echo "Packaging windows binaries" | indent
-mv ${PRODUCT_NAME}_windows_amd64.exe ${PRODUCT_NAME}.exe && zip ${PRODUCT_NAME}_windows_amd64.zip ${PRODUCT_NAME}.exe | indent && rm ${PRODUCT_NAME}.exe
+for f in *; do
+    if [ -f "$f" ]; then
+        zip -r "$f.zip" "$f"
+        rm -rf "$f"
+    fi
+done
 
 cd "$repo_dir"
 
