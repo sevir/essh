@@ -25,14 +25,26 @@ echo "PRODUCT_NAME: $PRODUCT_NAME"
 echo "PRODUCT_VERSION: $PRODUCT_VERSION"
 echo "COMMIT_HASH: $COMMIT_HASH"
 
+echo "Building binaries for windows and macosx..."
 gox \
-    -os="linux darwin windows" \
+    -os="darwin windows" \
     -arch="amd64 arm64" \
     -ldflags=" -w \
         -X github.com/kohkimakimoto/$PRODUCT_NAME/$PRODUCT_NAME.CommitHash=$COMMIT_HASH \
         -X github.com/kohkimakimoto/$PRODUCT_NAME/$PRODUCT_NAME.Version=$PRODUCT_VERSION" \
     -output "$outputs_dir/dist/${PRODUCT_NAME}_{{.OS}}_{{.Arch}}" \
     ./cmd/${PRODUCT_NAME}
+
+export CGO_ENABLED=0
+export CGO_CFLAGS="-static"
+export CGO_LDFLAGS="--static"
+
+echo "Building linux static binary..."
+gox -os="linux" -arch="amd64 arm64" -ldflags "-s -w \
+        -X github.com/kohkimakimoto/$PRODUCT_NAME/$PRODUCT_NAME.CommitHash=$COMMIT_HASH \
+        -X github.com/kohkimakimoto/$PRODUCT_NAME/$PRODUCT_NAME.Version=$PRODUCT_VERSION" \
+    -gcflags " -l -l -l" \
+    -output "$outputs_dir/dist/${PRODUCT_NAME}_{{.OS}}_{{.Arch}}" ./cmd/${PRODUCT_NAME}
 
 echo "Packaging to zip archives..."
 
