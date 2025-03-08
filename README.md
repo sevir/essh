@@ -90,7 +90,6 @@ Specify major/minor/patch with VERSION
 
 Inputs: VERSION
 
-Requires: test
 
 ```
 # https://github.com/unegma/bash-functions/blob/main/update.sh
