@@ -92,6 +92,15 @@ require: build
 make packaging
 ```
 
+### publish-docs
+
+Publishing docs to gh-pages
+
+```
+cd website
+npm run publish-gh-pages
+```
+
 ## Author
 
 Original Author (before 3.5.0 version):
