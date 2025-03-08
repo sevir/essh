@@ -16,7 +16,7 @@ builds:
     goarm:
       - 7
     ldflags:
-      - -s -w
+      - -s -w -X github.com/kohkimakimoto/{{.ProjectName}}/{{.ProjectName}}.CommitHash={{.Commit}} -X github.com/kohkimakimoto/{{.ProjectName}}/{{.ProjectName}}.Version={{.Version}} -X github.com/kohkimakimoto/{{.ProjectName}}/{{.ProjectName}}.CommitHash={{.Commit}} -X github.com/kohkimakimoto/{{.ProjectName}}/{{.ProjectName}}.Version={{.Version}}
     gcflags:
       - " -l -l -l"
     env:

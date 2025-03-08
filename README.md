@@ -129,7 +129,7 @@ git push origin ${NEW_TAG}
 Releasing a new version into the repo.
 
 ```
-goreleaser release --clean
+goreleaser release --clean --skip sign
 ```
 
 ### release-snapshot
