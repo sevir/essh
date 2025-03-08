@@ -78,3 +78,23 @@ Kohki Makimoto <kohki.makimoto@gmail.com>
 ## License
 
 The MIT License (MIT)
+
+## Tasks
+
+Tasks for xcfile.
+
+### build
+
+```sh
+make dist
+```
+
+### test-lua-code
+
+interactive: true
+
+```sh
+go run cmd/essh/essh.go --eval <<EOF
+$(cat ./test/test.lua)
+EOF
+```

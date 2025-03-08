@@ -393,11 +393,11 @@ func Run(osArgs []string) (exitStatus int) {
 
 	WorkingDir = wd
 	WorkingDataDir = filepath.Join(wd, ".essh")
-	WorkingDirConfigFile = filepath.Join(wd, ".esshconfig.lua")
+	WorkingDirConfigFile = filepath.Join(wd, "esshconfig.lua")
 
-	// This is for Backward Compatibility
-	if _, err := os.Stat(filepath.Join(wd, "esshconfig.lua")); err == nil {
-		WorkingDirConfigFile = filepath.Join(wd, "esshconfig.lua")
+	// If exists hidden file is preferred
+	if _, err := os.Stat(filepath.Join(wd, ".esshconfig.lua")); err == nil {
+		WorkingDirConfigFile = filepath.Join(wd, ".esshconfig.lua")
 	}
 
 	// use config file path from environment variable if it set.
@@ -1638,7 +1638,7 @@ Options:
   --eval                        Evaluate lua code.
   --all                         (Using with --hosts or --tasks option) Show all that includes hidden objects.
   --tags                        List tags.
-  --quiet                       (Using with --hosts, --tasks or --tags option) Show only names. 
+  --quiet                       (Using with --hosts, --tasks or --tags option) Show only names.
 
   (Execute Commands)
   --exec                        Execute commands with the hosts.
@@ -1938,7 +1938,7 @@ _essh () {
                     fi
 
                     ;;
-                    
+
                 --backend)
                     _essh_backends
                     ;;
