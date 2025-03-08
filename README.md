@@ -98,7 +98,7 @@ Publishing docs to gh-pages
 
 ```
 cd website
-npm run publish-gh-pages
+npm run publish
 ```
 
 ## Author
