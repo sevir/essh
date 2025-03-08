@@ -1,5 +1,5 @@
 # see http://gohugo.io/overview/configuration/
-baseurl = "https://kohkimakimoto.github.io/essh/"
+baseurl = "https://sevir.github.io/essh/"
 disableHugoGeneratorInject = true
 disableKinds = ["RSS"]
 languageCode = "en-us"
