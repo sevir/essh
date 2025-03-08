@@ -125,6 +125,22 @@ git tag ${NEW_TAG}
 git push origin ${NEW_TAG}
 ```
 
+### release
+
+Releasing a new version into the repo.
+
+```
+goreleaser release --clean
+```
+
+### release-snapshot
+
+Releasing a new snapshot version into the repo.
+
+```
+goreleaser release --snapshot --skip sign --clean
+```
+
 ### package-rpm
 
 Building packages (now support only RPM)
