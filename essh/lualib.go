@@ -14,6 +14,8 @@ import (
 	"github.com/otm/gluash"
 	base64 "github.com/vadv/gopher-lua-libs/base64"
 	crypto "github.com/vadv/gopher-lua-libs/crypto"
+	db "github.com/vadv/gopher-lua-libs/db"
+	inspect "github.com/vadv/gopher-lua-libs/inspect"
 	log "github.com/vadv/gopher-lua-libs/log"
 	runtime "github.com/vadv/gopher-lua-libs/runtime"
 	storage "github.com/vadv/gopher-lua-libs/storage"
@@ -58,6 +60,8 @@ func InitLuaState(L *lua.LState) {
 	L.PreloadModule("crypto", crypto.Loader)
 	L.PreloadModule("base64", base64.Loader)
 	L.PreloadModule("runtime", runtime.Loader)
+	L.PreloadModule("inspect", inspect.Loader)
+	L.PreloadModule("db", db.Loader)
 
 	// global variables
 	lessh := L.NewTable()

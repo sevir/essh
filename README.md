@@ -39,51 +39,19 @@ $ brew install kohkimakimoto/essh/essh
 
 [Download latest version](https://github.com/kohkimakimoto/essh/releases/latest)
 
-## Developing
+## Development
 
 Requirements
 
-* Go 1.7 or later (my development env)
-
-Installing dependences
-
-```
-$ make deps
-```
-
-Building dev binary.
-
-```
-$ make dev
-```
-
-Building distributed binaries.
-
-
-```
-$ make dist
-```
-
-Building packages (now support only RPM)
-
-```
-$ make dist
-$ make packaging
-```
-
-## Author
-
-Kohki Makimoto <kohki.makimoto@gmail.com>
-
-## License
-
-The MIT License (MIT)
+* Go 1.23 or later (my development env)
 
 ## Tasks
 
 Tasks for xcfile.
 
 ### build
+
+Building distributed binaries.
 
 ```sh
 make dist
@@ -98,3 +66,41 @@ go run cmd/essh/essh.go --eval <<EOF
 $(cat ./test/test.lua)
 EOF
 ```
+### install:deps
+
+Installing dependences
+
+```
+make deps
+```
+
+### dev
+
+Building dev binary.
+
+```
+make dev
+```
+
+### package-rpm
+
+Building packages (now support only RPM)
+
+require: build
+
+```
+make packaging
+```
+
+## Author
+
+Original Author (before 3.5.0 version):
+Kohki Makimoto <kohki.makimoto@gmail.com>
+
+Current Maintainer:
+José Francisco Rives <jose@sevir.org>
+
+## License
+
+The MIT License (MIT)
+

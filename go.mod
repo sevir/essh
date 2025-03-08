@@ -18,12 +18,14 @@ require (
 	github.com/mattn/go-runewidth v0.0.16
 	github.com/mitchellh/mapstructure v1.5.0
 	github.com/otm/gluash v0.0.0-20151226163409-e145c563986f
+	github.com/vadv/gopher-lua-libs v0.5.0
 	github.com/yuin/gluare v0.0.0-20170607022532-d7c94f1a80ed
 	github.com/yuin/gopher-lua v1.1.1
 	layeh.com/gopher-json v0.0.0-20201124131017-552bb3c4c3bf
 )
 
 require (
+	filippo.io/edwards25519 v1.1.0 // indirect
 	github.com/Masterminds/semver v1.5.0 // indirect
 	github.com/Masterminds/vcs v1.13.3 // indirect
 	github.com/VividCortex/ewma v1.1.1 // indirect
@@ -38,17 +40,17 @@ require (
 	github.com/chai2010/glua-helper v0.0.0-20171228064744-0e9a290dbcdf // indirect
 	github.com/cheggaaa/pb/v3 v3.0.5 // indirect
 	github.com/dustin/go-humanize v1.0.0 // indirect
-	github.com/go-sql-driver/mysql v1.5.0 // indirect
+	github.com/go-sql-driver/mysql v1.9.0 // indirect
 	github.com/golang/dep v0.5.4 // indirect
 	github.com/golang/protobuf v1.5.4 // indirect
 	github.com/hashicorp/go-version v1.7.0 // indirect
 	github.com/howeyc/gopass v0.0.0-20210920133722-c8aef6fb66ef // indirect
 	github.com/jmank88/nuts v0.4.0 // indirect
 	github.com/jmespath/go-jmespath v0.3.0 // indirect
-	github.com/lib/pq v1.7.0 // indirect
+	github.com/lib/pq v1.10.9 // indirect
 	github.com/mattn/go-colorable v0.1.14 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
-	github.com/mattn/go-sqlite3 v1.14.3 // indirect
+	github.com/mattn/go-sqlite3 v1.14.24 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.1 // indirect
 	github.com/mitchellh/gox v1.0.1 // indirect
 	github.com/mitchellh/iochan v1.0.0 // indirect
@@ -63,7 +65,6 @@ require (
 	github.com/rivo/uniseg v0.4.7 // indirect
 	github.com/sdboyer/constext v0.0.0-20170321163424-836a14457353 // indirect
 	github.com/technoweenie/multipartstreamer v1.0.1 // indirect
-	github.com/vadv/gopher-lua-libs v0.5.0 // indirect
 	github.com/yookoala/realpath v1.0.0 // indirect
 	github.com/yuin/gluamapper v0.0.0-20150323120927-d836955830e7 // indirect
 	golang.org/x/crypto v0.36.0 // indirect
