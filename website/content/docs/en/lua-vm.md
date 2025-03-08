@@ -43,6 +43,16 @@ The following are the built-in libraries that are included in Essh.
 * `http`: [cjoudrey/gluahttp](https://github.com/cjoudrey/gluahttp).
 * `re`: [yuin/gluare](https://github.com/yuin/gluare)
 * `sh`: [otm/gluash](https://github.com/otm/gluash)
+* `strings`: [chai2010/glua-strings](https://github.com/chai2010/glua-strings)
+* `base64`: [vadv/gopher-lua-libs/base64](github.com/vadv/gopher-lua-libs/base64)
+* `crypto`: [vadv/gopher-lua-libs/crypto](https://github.com/vadv/gopher-lua-libs/crypto)
+* `db`: [vadv/gopher-lua-libs/db](https://github.com/vadv/gopher-lua-libs/db)
+* `inspect`: [vadv/gopher-lua-libs/inspect](https://github.com/vadv/gopher-lua-libs/inspect)
+* `log`: [vadv/gopher-lua-libs/log](https://github.com/vadv/gopher-lua-libs/log)
+* `runtime`: [vadv/gopher-lua-libs/runtime](https://github.com/vadv/gopher-lua-libs/runtime)
+* `storage`: [vadv/gopher-lua-libs/storage](https://github.com/vadv/gopher-lua-libs/storage)
+* `tac`: [vadv/gopher-lua-libs/tac](https://github.com/vadv/gopher-lua-libs/tac)
+* `time`: [vadv/gopher-lua-libs/time](https://github.com/vadv/gopher-lua-libs/time)
 
 ## Predefined Variables
 
