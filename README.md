@@ -156,7 +156,9 @@ Publishing docs to gh-pages
 
 ```
 cd website
-npm run publish
+rm -rf public
+./hugo
+./scripts/gh-pages-publish
 ```
 
 ## Author

@@ -127,7 +127,7 @@ The MIT License (MIT)
     debug("cmd: " + cmd)
     run_command(cmd)
 
-    cmd = "cd {}/repo/ && git add -A && git commit -am '{}' && git push origin {} --quiet".format(
+    cmd = "cd {}/repo/ && git add -A && git commit -am '{}' && git push --force origin {} --quiet".format(
         tempdir, commit_message, branch)
     debug("cmd: " + cmd)
     run_command(cmd)
