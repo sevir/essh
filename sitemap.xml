@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>https://sevir.github.io/essh/</loc>
+  </url>
+  
+  <url>
+    <loc>https://sevir.github.io/essh/docs/en/cli-options.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://sevir.github.io/essh/docs/en/configuration-files.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://sevir.github.io/essh/intro/en/defining-namespaces.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://sevir.github.io/essh/docs/en.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://sevir.github.io/essh/docs/en/drivers.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://sevir.github.io/essh/docs/en/groups.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://sevir.github.io/essh/docs/en/hosts.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://sevir.github.io/essh/intro/en/installation.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://sevir.github.io/essh/docs/en/integrating-other-tools.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://sevir.github.io/essh/intro/en.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://sevir.github.io/essh/docs/en/lua-vm.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://sevir.github.io/essh/intro/en/managing-hosts.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://sevir.github.io/essh/intro/en/running-commands.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://sevir.github.io/essh/intro/en/running-tasks.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://sevir.github.io/essh/docs/en/tasks.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://sevir.github.io/essh/intro/en/using-as-a-ssh-client.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://sevir.github.io/essh/intro/en/using-drivers.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://sevir.github.io/essh/intro/en/using-hooks.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://sevir.github.io/essh/intro/en/using-lua-libraries.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://sevir.github.io/essh/intro/en/zsh-completion.html</loc>
+  </url>
+  
+</urlset>
