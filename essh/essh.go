@@ -49,6 +49,7 @@ var (
 	tagsFlag    bool
 	tasksFlag   bool
 	evalFlag    bool
+	evalFileVar string
 	genFlag     bool
 	globalFlag  bool
 
@@ -102,6 +103,7 @@ func initResources() {
 	tagsFlag = false
 	tasksFlag = false
 	evalFlag = false
+	evalFileVar = ""
 	genFlag = false
 	globalFlag = false
 	zshCompletionModeFlag = false
@@ -227,6 +229,15 @@ func Run(osArgs []string) (exitStatus int) {
 			tasksFlag = true
 		} else if arg == "--eval" {
 			evalFlag = true
+		} else if arg == "--eval-file" {
+			if len(osArgs) < 2 {
+				printError("--eval-file requires an argument.")
+				return ExitErr
+			}
+			evalFileVar = osArgs[1]
+			osArgs = osArgs[1:]
+		} else if strings.HasPrefix(arg, "--eval-file=") {
+			evalFileVar = strings.Split(arg, "=")[1]
 		} else if arg == "--select" {
 			if len(osArgs) < 2 {
 				printError("--select reguires an argument.")
@@ -779,6 +790,25 @@ func Run(osArgs []string) (exitStatus int) {
 		}
 
 		if err := L.DoString(code); err != nil {
+			printError(err)
+			return ExitErr
+		}
+
+		return
+	}
+
+	// only eval lua code from file
+	if evalFileVar != "" {
+		if debugFlag {
+			fmt.Printf("[essh debug] evaluating lua file: %s\n", evalFileVar)
+		}
+
+		if _, err := os.Stat(evalFileVar); os.IsNotExist(err) {
+			printError(fmt.Errorf("file not found: %s", evalFileVar))
+			return ExitErr
+		}
+
+		if err := L.DoFile(evalFileVar); err != nil {
 			printError(err)
 			return ExitErr
 		}
@@ -1636,6 +1666,7 @@ Options:
   --ssh-config                  (Using with --hosts option) Output selected hosts as ssh_config format.
   --tasks                       List tasks.
   --eval                        Evaluate lua code.
+  --eval-file <file>            Evaluate lua code from file.
   --all                         (Using with --hosts or --tasks option) Show all that includes hidden objects.
   --tags                        List tags.
   --quiet                       (Using with --hosts, --tasks or --tags option) Show only names.
@@ -1787,6 +1818,7 @@ _essh_options() {
         '--tags:List tags.'
         '--tasks:List tasks.'
 		'--eval:Evaluate lua script.'
+		'--eval-file:Evaluate lua script from file.'
         '--debug:Output debug log.'
         '--global:Force using global config.'
         '--exec:Execute commands with the hosts.'
@@ -1925,7 +1957,7 @@ _essh () {
                     ;;
                 --print|--help|--version|--gen)
                     ;;
-                --script-file|--config)
+                --script-file|--config|--eval-file)
                     _files
                     ;;
                 --select|--target|--filter)
@@ -1951,7 +1983,7 @@ _essh () {
                         _essh_tasks_options
                     elif [ "$tagsMode" = "on" ]; then
                         _essh_tags_options
-                    else
+                    else {
                         _essh_options
                         _files
                     fi
@@ -2061,6 +2093,7 @@ _essh_options() {
         --tags
         --tasks
 		--eval
+		--eval-file
         --debug
         --exec
         --zsh-completion
@@ -2110,7 +2143,7 @@ _essh() {
             case "$last_arg" in
                 --print|--help|--version|--gen)
                     ;;
-                --script-file|--config)
+                --script-file|--config|--eval-file)
                     ;;
                 --select|--target|--filter)
                     _essh_hosts_and_tags
