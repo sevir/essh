@@ -88,7 +88,8 @@ Deploys a new tag for the repo.
 
 Specify major/minor/patch with VERSION
 
-Inputs: VERSION
+Env: PRERELEASE=0, VERSION=minor
+Inputs: VERSION, PRERELEASE
 
 
 ```
@@ -118,6 +119,18 @@ else
 fi
 
 NEW_TAG="$VNUM1.$VNUM2.$VNUM3"
+
+# if command convco is available, use it to check the version
+if command -v convco &> /dev/null
+then
+  # if the version is a prerelease, add the prerelease tag
+  if [[ $PRERELEASE == '1' ]]
+  then
+    NEW_TAG=$(convco version -b --prerelease)
+  else
+    NEW_TAG=$(convco version -b)
+  fi
+fi
 
 echo Adding git tag with version ${NEW_TAG}
 git tag ${NEW_TAG}
