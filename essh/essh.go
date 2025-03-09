@@ -16,11 +16,16 @@ import (
 	"text/template"
 
 	"github.com/Songmu/wrapcommander"
+
 	fatihColor "github.com/fatih/color"
 	"github.com/kardianos/osext"
 	"github.com/sevir/essh/support/color"
 	"github.com/sevir/essh/support/helper"
 	lua "github.com/yuin/gopher-lua"
+
+	"github.com/charmbracelet/bubbles/list"
+	tea "github.com/charmbracelet/bubbletea"
+	"github.com/charmbracelet/lipgloss"
 )
 
 // system configurations.
@@ -50,6 +55,7 @@ var (
 	tasksFlag   bool
 	evalFlag    bool
 	evalFileVar string
+	menuFlag    bool
 	genFlag     bool
 	globalFlag  bool
 
@@ -102,6 +108,7 @@ func initResources() {
 	allFlag = false
 	tagsFlag = false
 	tasksFlag = false
+	menuFlag = false
 	evalFlag = false
 	evalFileVar = ""
 	genFlag = false
@@ -160,6 +167,71 @@ func initResources() {
 	DefaultDriver = driver
 }
 
+// Add new types for the TUI
+type item struct {
+	name, desc string
+	isHost     bool
+}
+
+func (i item) Title() string       { return i.name }
+func (i item) Description() string { return i.desc }
+func (i item) FilterValue() string { return i.name }
+
+type model struct {
+	list     list.Model
+	selected item
+	quitting bool
+}
+
+// New styles for the TUI
+var (
+	titleStyle = lipgloss.NewStyle().
+			Background(lipgloss.Color("62")).
+			Foreground(lipgloss.Color("230")).
+			Padding(0, 1)
+
+	hostStyle = lipgloss.NewStyle().
+			Background(lipgloss.Color("25")).
+			Foreground(lipgloss.Color("230")).
+			Padding(0, 1)
+
+	taskStyle = lipgloss.NewStyle().
+			Background(lipgloss.Color("126")).
+			Foreground(lipgloss.Color("230")).
+			Padding(0, 1)
+)
+
+func (m model) Init() tea.Cmd {
+	return nil
+}
+
+func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
+	switch msg := msg.(type) {
+	case tea.KeyMsg:
+		switch msg.String() {
+		case "ctrl+c", "q":
+			m.quitting = true
+			return m, tea.Quit
+		case "enter":
+			if i, ok := m.list.SelectedItem().(item); ok {
+				m.selected = i
+				return m, tea.Quit
+			}
+		}
+	}
+
+	var cmd tea.Cmd
+	m.list, cmd = m.list.Update(msg)
+	return m, cmd
+}
+
+func (m model) View() string {
+	if m.quitting {
+		return ""
+	}
+	return "\n" + m.list.View()
+}
+
 func Run(osArgs []string) (exitStatus int) {
 	defer func() {
 		if e := recover(); e != nil {
@@ -187,6 +259,7 @@ func Run(osArgs []string) (exitStatus int) {
 	if len(osArgs) == 0 {
 		printUsage()
 		return
+
 	}
 
 	args := []string{}
@@ -363,6 +436,8 @@ func Run(osArgs []string) (exitStatus int) {
 			fileFlag = true
 		} else if arg == "--pty" {
 			ptyFlag = true
+		} else if arg == "--menu" {
+			menuFlag = true
 		} else if arg == "--" {
 			doesNotParseOption = true
 			// to behave same ssh. pass the `--` to the ssh.
@@ -837,6 +912,84 @@ func Run(osArgs []string) (exitStatus int) {
 
 	// only generating contents
 	if genFlag {
+		return
+	}
+
+	if menuFlag {
+		// Create list of items combining hosts and tasks
+		items := []list.Item{}
+
+		// Add hosts first
+		hosts := NewHostQuery().GetHostsOrderByName()
+		for _, host := range hosts {
+			if !host.Hidden {
+				items = append(items, item{
+					name:   host.Name,
+					desc:   host.DescriptionOrDefault(),
+					isHost: true,
+				})
+			}
+		}
+
+		// Add tasks
+		tasks := NewTaskQuery().GetTasksOrderByName()
+		for _, task := range tasks {
+			if !task.Hidden && !task.Disabled {
+				items = append(items, item{
+					name:   task.PublicName(),
+					desc:   task.DescriptionOrDefault(),
+					isHost: false,
+				})
+			}
+		}
+
+		// Setup list
+
+		delegate := list.NewDefaultDelegate()
+		delegate.Styles.SelectedTitle = delegate.Styles.SelectedTitle.
+			Background(lipgloss.Color("57")).
+			Foreground(lipgloss.Color("230"))
+		// delegate.Styles.SelectedDesc = delegate.Styles.SelectedDesc.
+		// 	Background(lipgloss.Color("57")).
+		// 	Foreground(lipgloss.Color("230"))
+
+		l := list.New(items, delegate, 80, 20) // Set width and height to ensure visibility
+		l.Title = "ESSH Hosts and Tasks"
+		l.SetShowStatusBar(true)
+		l.SetFilteringEnabled(true)
+		l.Styles.Title = titleStyle
+
+		m := model{list: l}
+
+		p := tea.NewProgram(m, tea.WithAltScreen())
+		finalModel, err := p.Run()
+		if err != nil {
+			printError(err)
+			return ExitErr
+		}
+
+		if m, ok := finalModel.(model); ok && !m.quitting {
+			selected := m.selected
+			if selected.isHost {
+				// Run SSH for host
+				err, ex := runSSH(L, outputConfig, []string{selected.name})
+				if err != nil {
+					printError(err)
+					return ExitErr
+				}
+				return ex
+			} else {
+				// Run task
+				task := GetEnabledTask(selected.name)
+				if task != nil {
+					err := runTask(outputConfig, task, []string{}, L)
+					if err != nil {
+						printError(err)
+						return ExitErr
+					}
+				}
+			}
+		}
 		return
 	}
 
