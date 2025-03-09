@@ -18,8 +18,8 @@ import (
 	"github.com/Songmu/wrapcommander"
 	fatihColor "github.com/fatih/color"
 	"github.com/kardianos/osext"
-	"github.com/kohkimakimoto/essh/support/color"
-	"github.com/kohkimakimoto/essh/support/helper"
+	"github.com/sevir/essh/support/color"
+	"github.com/sevir/essh/support/helper"
 	lua "github.com/yuin/gopher-lua"
 )
 
@@ -1631,7 +1631,9 @@ func printUsage() {
 Essh is an extended ssh command.
 version ` + Version + ` (` + CommitHash + `)
 
-Copyright (c) Kohki Makimoto <kohki.makimoto@gmail.com>
+Original from Kohki Makimoto <kohki.makimoto@gmail.com>
+Forked and extended by José F. Rives <jose@sevir.org>
+
 The MIT License (MIT)
 
 See more detail, use '--help'.
@@ -1645,7 +1647,9 @@ func printHelp() {
 Essh is an extended ssh command.
 version ` + Version + ` (` + CommitHash + `)
 
-Copyright (c) Kohki Makimoto <kohki.makimoto@gmail.com>
+Original from Kohki Makimoto <kohki.makimoto@gmail.com>
+Forked and extended by José F. Rives <jose@sevir.org>
+
 The MIT License (MIT)
 
 Options:
@@ -1694,7 +1698,7 @@ Options:
   --version                     Print version.
   --help                        Print help.
 
-See: https://github.com/kohkimakimoto/essh for updates, code and issues.
+See: https://github.com/sevir/essh for updates, code and issues.
 
 `)
 }

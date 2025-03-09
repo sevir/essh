@@ -31,6 +31,30 @@ builds:
       - goos: windows
         goarch: arm64
 dist: ./build/outputs/dist
+upx:
+  - # Whether to enable it or not.
+    #
+    # Templates: allowed.
+    enabled: true
+
+    # Filter by build ID.
+    ids: [essh]
+
+    # Filter by GOOS.
+    goos: [linux]
+
+    # Filter by GOARCH.
+    goarch: [amd64]
+
+    # Compress argument.
+    # Valid options are from '1' (faster) to '9' (better), and 'best'.
+    compress: '1'
+
+    # Whether to try LZMA (slower).
+    lzma: true
+
+    # Whether to try all methods and filters (slow).
+    brute: false
 signs:
   - artifacts: checksum
     args: ["--batch", "-u", "{{ .Env.GPG_FINGERPRINT }}", "--output", "${signature}", "--detach-sign", "${artifact}"]

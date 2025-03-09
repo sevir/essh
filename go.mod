@@ -1,4 +1,4 @@
-module github.com/kohkimakimoto/essh
+module github.com/sevir/essh
 
 go 1.23.0
 
