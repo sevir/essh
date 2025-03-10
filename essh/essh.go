@@ -186,9 +186,13 @@ type model struct {
 // New styles for the TUI
 var (
 	titleStyle = lipgloss.NewStyle().
-			Background(lipgloss.Color("62")).
-			Foreground(lipgloss.Color("230")).
-			Padding(0, 1)
+			Foreground(lipgloss.Color("#FFFFFF")).
+			Bold(true)
+
+	descStyle = lipgloss.NewStyle().
+			Foreground(lipgloss.Color("#A0A0A0"))
+
+	docStyle = lipgloss.NewStyle().Margin(1, 2)
 
 	hostStyle = lipgloss.NewStyle().
 			Background(lipgloss.Color("25")).
@@ -196,7 +200,7 @@ var (
 			Padding(0, 1)
 
 	taskStyle = lipgloss.NewStyle().
-			Background(lipgloss.Color("126")).
+			Background(lipgloss.Color("208")).
 			Foreground(lipgloss.Color("230")).
 			Padding(0, 1)
 )
@@ -207,6 +211,9 @@ func (m model) Init() tea.Cmd {
 
 func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
+	case tea.WindowSizeMsg:
+		h, v := docStyle.GetFrameSize()
+		m.list.SetSize(msg.Width-h, msg.Height-v)
 	case tea.KeyMsg:
 		switch msg.String() {
 		case "ctrl+c", "q":
@@ -231,6 +238,60 @@ func (m model) View() string {
 	}
 	return "\n" + m.list.View()
 }
+
+// Custom delegate embedding the default delegate
+type delegate struct {
+	list.DefaultDelegate
+}
+
+func (d delegate) Render(w io.Writer, m list.Model, index int, listItem list.Item) {
+	itm, ok := listItem.(item)
+	if !ok {
+		return
+	}
+
+	var tagType string
+	var tagStyle lipgloss.Style
+	switch itm.isHost {
+	case true:
+		tagStyle = hostStyle
+		tagType = "H"
+	case false:
+		tagStyle = taskStyle
+		tagType = "T"
+	default:
+		tagStyle = hostStyle
+	}
+
+	tag := tagStyle.Render(tagType)
+	desc := descStyle.Render(itm.desc)
+
+	// If the item is selected, render the name with underline
+	var name string
+	if index == m.Index() {
+		name = titleStyle.Underline(true).Render(itm.name)
+		// Reset the title style to prevent affecting other items
+		titleStyle = titleStyle.Underline(false)
+	} else {
+		name = titleStyle.Render(itm.name)
+	}
+
+	var symbol string
+	if index == m.Index() {
+		symbol = "»"
+	} else {
+		symbol = " "
+	}
+
+	content := lipgloss.JoinVertical(lipgloss.Left,
+		lipgloss.JoinHorizontal(lipgloss.Left, symbol, tag, " ", name),
+		desc,
+	)
+
+	fmt.Fprint(w, content)
+}
+
+// ---- end of new types for the TUI
 
 func Run(osArgs []string) (exitStatus int) {
 	defer func() {
@@ -945,19 +1006,21 @@ func Run(osArgs []string) (exitStatus int) {
 
 		// Setup list
 
-		delegate := list.NewDefaultDelegate()
-		delegate.Styles.SelectedTitle = delegate.Styles.SelectedTitle.
-			Background(lipgloss.Color("57")).
-			Foreground(lipgloss.Color("230"))
-		// delegate.Styles.SelectedDesc = delegate.Styles.SelectedDesc.
+		// delegate := list.NewDefaultDelegate()
+		// delegate.Styles.SelectedTitle = delegate.Styles.SelectedTitle.
 		// 	Background(lipgloss.Color("57")).
 		// 	Foreground(lipgloss.Color("230"))
 
-		l := list.New(items, delegate, 80, 20) // Set width and height to ensure visibility
+		l := list.New(items, list.NewDefaultDelegate(), 80, 20) // Set width and height to ensure visibility
 		l.Title = "ESSH Hosts and Tasks"
+		l.Styles.Title = titleStyle
 		l.SetShowStatusBar(true)
 		l.SetFilteringEnabled(true)
 		l.Styles.Title = titleStyle
+
+		// Custom delegate to render items with tags
+		l.SetDelegate(delegate{list.NewDefaultDelegate()})
+		l.Styles.NoItems = lipgloss.NewStyle().Foreground(lipgloss.Color("241"))
 
 		m := model{list: l}
 
