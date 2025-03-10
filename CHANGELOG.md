@@ -1,12 +1,20 @@
 # Changelog
 
-## [Unreleased](https://github.com/sevir/essh/compare/v3.6.2...58809a9fdd22482211f5bc26c64ea7a1d0d537f7) (2025-03-09)
+## [Unreleased](https://github.com/sevir/essh/compare/v3.6.2...9f5d3866d68b36e8810fe5b9306c4b5e4ee073b0) (2025-03-10)
 
 ### Features
 
+* **menu:** Add tui menu for hosts with new flag --menu
+([fac2ab6](https://github.com/sevir/essh/commit/fac2ab68e58199e1698ffa80befff4dd6fc53dc8))
 * **build:** Add upx compression binary for linux amd64 version (the standard
 server system)
 ([58809a9](https://github.com/sevir/essh/commit/58809a9fdd22482211f5bc26c64ea7a1d0d537f7))
+
+### Fixes
+
+* **menu:** Improve the menu of tasks and hosts showing the type and detect
+the screen size
+([9f5d386](https://github.com/sevir/essh/commit/9f5d3866d68b36e8810fe5b9306c4b5e4ee073b0))
 
 ### [v3.6.2](https://github.com/sevir/essh/compare/v3.6.1...v3.6.2) (2025-03-08)
 

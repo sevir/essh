@@ -88,7 +88,7 @@ Deploys a new tag for the repo.
 
 Specify major/minor/patch with VERSION
 
-Env: PRERELEASE=0, VERSION=minor
+Env: PRERELEASE=0, VERSION=minor, FORCE_VERSION=0
 Inputs: VERSION, PRERELEASE
 
 
@@ -126,15 +126,29 @@ then
   # if the version is a prerelease, add the prerelease tag
   if [[ $PRERELEASE == '1' ]]
   then
-    NEW_TAG=$(convco version -b --prerelease)
+    NEW_TAG=v$(convco version -b --prerelease)
   else
-    NEW_TAG=$(convco version -b)
+    NEW_TAG=v$(convco version -b)
   fi
+fi
+
+# if $FORCE_VERSION is different to 0 then use it as the version
+if [[ $FORCE_VERSION != '0' ]]
+then
+  NEW_TAG=v$FORCE_VERSION
 fi
 
 echo Adding git tag with version ${NEW_TAG}
 git tag ${NEW_TAG}
 git push origin ${NEW_TAG}
+```
+
+### changelog
+
+Generate a changelog for the repo.
+
+```
+convco changelog > CHANGELOG.md
 ```
 
 ### release
