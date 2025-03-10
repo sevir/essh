@@ -1,5 +1,14 @@
 # Changelog
 
+## [Unreleased](https://github.com/sevir/essh/compare/v3.7.2...71ccad24199ae9366499716fad23e6a7545530de) (2025-03-10)
+
+### [v3.7.2](https://github.com/sevir/essh/compare/v3.7.1...v3.7.2) (2025-03-10)
+
+#### Fixes
+
+* Problem with the correct release version in build process
+([786c2cc](https://github.com/sevir/essh/commit/786c2cc46ea313cc9649ed736bbc852cad53ee79))
+
 ### [v3.7.1](https://github.com/sevir/essh/compare/v3.7.0...v3.7.1) (2025-03-10)
 
 ## [v3.7.0](https://github.com/sevir/essh/compare/v3.6.2...v3.7.0) (2025-03-10)
