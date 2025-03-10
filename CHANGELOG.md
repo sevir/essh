@@ -1,6 +1,8 @@
 # Changelog
 
-## [Unreleased](https://github.com/sevir/essh/compare/v3.6.2...9f5d3866d68b36e8810fe5b9306c4b5e4ee073b0) (2025-03-10)
+### [v3.7.1](https://github.com/sevir/essh/compare/v3.7.0...v3.7.1) (2025-03-10)
+
+## [v3.7.0](https://github.com/sevir/essh/compare/v3.6.2...v3.7.0) (2025-03-10)
 
 ### Features
 

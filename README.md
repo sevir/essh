@@ -89,7 +89,7 @@ Deploys a new tag for the repo.
 Specify major/minor/patch with VERSION
 
 Env: PRERELEASE=0, VERSION=minor, FORCE_VERSION=0
-Inputs: VERSION, PRERELEASE
+Inputs: VERSION, PRERELEASE, FORCE_VERSION
 
 
 ```
@@ -118,7 +118,7 @@ else
   exit 1
 fi
 
-NEW_TAG="$VNUM1.$VNUM2.$VNUM3"
+NEW_TAG="v$VNUM1.$VNUM2.$VNUM3"
 
 # if command convco is available, use it to check the version
 if command -v convco &> /dev/null
