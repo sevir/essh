@@ -16,7 +16,7 @@ builds:
     goarm:
       - 7
     ldflags:
-      - -s -w -X github.com/kohkimakimoto/{{.ProjectName}}/{{.ProjectName}}.CommitHash={{.Commit}} -X github.com/kohkimakimoto/{{.ProjectName}}/{{.ProjectName}}.Version={{.Version}} -X github.com/kohkimakimoto/{{.ProjectName}}/{{.ProjectName}}.CommitHash={{.Commit}} -X github.com/kohkimakimoto/{{.ProjectName}}/{{.ProjectName}}.Version={{.Version}}
+      - -s -w -X github.com/sevir/{{.ProjectName}}/{{.ProjectName}}.CommitHash={{.Commit}} -X github.com/sevir/{{.ProjectName}}/{{.ProjectName}}.Version={{.Version}} -X github.com/kohkimakimoto/{{.ProjectName}}/{{.ProjectName}}.CommitHash={{.Commit}} -X github.com/kohkimakimoto/{{.ProjectName}}/{{.ProjectName}}.Version={{.Version}}
     gcflags:
       - " -l -l -l"
     env:
@@ -44,7 +44,7 @@ upx:
     goos: [linux]
 
     # Filter by GOARCH.
-    goarch: [amd64]
+    goarch: [amd64, arm64]
 
     # Compress argument.
     # Valid options are from '1' (faster) to '9' (better), and 'best'.
@@ -55,9 +55,6 @@ upx:
 
     # Whether to try all methods and filters (slow).
     brute: false
-signs:
-  - artifacts: checksum
-    args: ["--batch", "-u", "{{ .Env.GPG_FINGERPRINT }}", "--output", "${signature}", "--detach-sign", "${artifact}"]
 archives:
   - formats: [ 'binary' ]
     id: xc
