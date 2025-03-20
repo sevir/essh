@@ -12,6 +12,9 @@ import (
 	"github.com/kohkimakimoto/gluatemplate"
 	"github.com/kohkimakimoto/gluayaml"
 	"github.com/otm/gluash"
+	"github.com/sevir/gluaaws"
+	"github.com/sevir/gluamdns"
+	"github.com/sevir/gluawatch"
 	base64 "github.com/vadv/gopher-lua-libs/base64"
 	crypto "github.com/vadv/gopher-lua-libs/crypto"
 	db "github.com/vadv/gopher-lua-libs/db"
@@ -62,6 +65,9 @@ func InitLuaState(L *lua.LState) {
 	L.PreloadModule("runtime", runtime.Loader)
 	L.PreloadModule("inspect", inspect.Loader)
 	L.PreloadModule("db", db.Loader)
+	L.PreloadModule("aws", gluaaws.Loader)
+	L.PreloadModule("watch", gluawatch.Loader)
+	L.PreloadModule("mdns", gluamdns.Loader)
 
 	// global variables
 	lessh := L.NewTable()

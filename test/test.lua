@@ -147,3 +147,73 @@ local inspect = require("inspect")
 local table = {"one", "two", {1, 2, 3}}
 local result = inspect(table)
 print(result)
+
+-- extension aws
+local aws = require("aws")
+
+-- List EC2 instances by specifying region and profile
+local instances = aws.listEC2Instances("eu-west-1", "default")
+
+-- Iterate through instances
+for _, instance in ipairs(instances) do
+    -- Access instance properties
+    print("Instance ID:", instance.instanceId)
+    print("Instance Type:", instance.instanceType)
+    print("State:", instance.state)
+    
+    -- Access IP addresses (if available)
+    if instance.privateIp then
+        print("Private IP:", instance.privateIp)
+    end
+    if instance.publicIp then
+        print("Public IP:", instance.publicIp)
+    end
+    
+    -- Access instance tags
+    for tagKey, tagValue in pairs(instance.tags) do
+        print("Tag:", tagKey, "=", tagValue)
+    end
+end
+
+-- extension mdns
+
+local mdns = require("mdns")
+
+local results = mdns.browse("_workstation._tcp", "local", 2)
+
+-- Results is a table of entries, each containing:
+--   - name: service name
+--   - service: service type
+--   - domain: domain name
+--   - port: port number
+--   - ips: table of IP addresses
+--   - serviceInstanceName: full service instance name
+--   - serviceTypeName: full service type name
+
+for _, entry in ipairs(results) do
+    print("Found service:", entry.name)
+    print("Port:", entry.port)
+    -- output all IP addresses
+    for _, ip in ipairs(entry.ips) do
+        print("IP:", ip)
+    end
+    
+
+    print("Service Type:", entry.service)
+    print("Domain:", entry.domain)
+    print("Service Instance Name:", entry.serviceInstanceName)
+    print("Service Type Name:", entry.serviceTypeName)
+end
+
+-- extension watch
+
+local watch = require("watch")
+
+-- Watch a file for changes
+local files = {
+    "./test/"
+}
+local w, err = watch.watch(files, function(filename)
+    print("File changed:", filename)
+end)
+
