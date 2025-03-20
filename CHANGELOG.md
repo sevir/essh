@@ -1,6 +1,11 @@
 # Changelog
 
-## [Unreleased](https://github.com/sevir/essh/compare/v3.7.2...71ccad24199ae9366499716fad23e6a7545530de) (2025-03-10)
+## [v3.8.0](https://github.com/sevir/essh/compare/v3.7.2...v3.8.0) (2025-03-20)
+
+### Features
+
+* **lua:** Add new lua functions for aws, mdns and watch file changes
+([cd1dfe8](https://github.com/sevir/essh/commit/cd1dfe81c95a880f74928beca537ea4a190e4641))
 
 ### [v3.7.2](https://github.com/sevir/essh/compare/v3.7.1...v3.7.2) (2025-03-10)
 
