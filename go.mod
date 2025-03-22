@@ -19,7 +19,7 @@ require (
 	github.com/mattn/go-runewidth v0.0.16
 	github.com/mitchellh/mapstructure v1.5.0
 	github.com/otm/gluash v0.0.0-20151226163409-e145c563986f
-	github.com/sevir/gluaaws v0.1.1
+	github.com/sevir/gluaaws v0.1.2
 	github.com/sevir/gluamdns v0.0.0-20250320205403-0d6bed771b48
 	github.com/sevir/gluawatch v0.0.0-20250320221401-808150c476cc
 	github.com/vadv/gopher-lua-libs v0.5.0
@@ -31,6 +31,7 @@ require (
 require (
 	filippo.io/edwards25519 v1.1.0 // indirect
 	github.com/atotto/clipboard v0.1.4 // indirect
+	github.com/aws/aws-sdk-go v1.55.6 // indirect
 	github.com/aws/aws-sdk-go-v2 v1.36.3 // indirect
 	github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream v1.6.10 // indirect
 	github.com/aws/aws-sdk-go-v2/config v1.29.9 // indirect

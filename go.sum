@@ -13,6 +13,8 @@ github.com/alessio/shellescape v1.4.1/go.mod h1:PZAiSCk0LJaZkiCSkPv8qIobYglO3FPp
 github.com/atotto/clipboard v0.1.4 h1:EH0zSVneZPSuFR11BlR9YppQTVDbh5+16AmcJi4g1z4=
 github.com/atotto/clipboard v0.1.4/go.mod h1:ZY9tmq7sm5xIbd9bOK4onWV4S6X0u6GY7Vn0Yu86PYI=
 github.com/aws/aws-sdk-go v1.34.0/go.mod h1:5zCpMtNQVjRREroY7sYe8lOMRSxkhG6MZveU8YkpAk0=
+github.com/aws/aws-sdk-go v1.55.6 h1:cSg4pvZ3m8dgYcgqB97MrcdjUmZ1BeMYKUxMMB89IPk=
+github.com/aws/aws-sdk-go v1.55.6/go.mod h1:eRwEWoyTWFMVYVQzKMNHWP5/RV4xIUGMQfXQHfHkpNU=
 github.com/aws/aws-sdk-go-v2 v1.36.3 h1:mJoei2CxPutQVxaATCzDUjcZEjVRdpsiiXi2o38yqWM=
 github.com/aws/aws-sdk-go-v2 v1.36.3/go.mod h1:LLXuLpgzEbD766Z5ECcRmi8AzSwfZItDtmABVkRLGzg=
 github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream v1.6.10 h1:zAybnyUQXIZ5mok5Jqwlf58/TFE7uvd3IAsa1aF9cXs=
@@ -221,6 +223,8 @@ github.com/sahilm/fuzzy v0.1.1 h1:ceu5RHF8DGgoi+/dR5PsECjCDH1BE3Fnmpo7aVXOdRA=
 github.com/sahilm/fuzzy v0.1.1/go.mod h1:VFvziUEIMCrT6A6tw2RFIXPXXmzXbOsSHF0DOI8ZK9Y=
 github.com/sevir/gluaaws v0.1.1 h1:4VCcQqzvLBEPFCBCoE6KwzOBo7ubxF1zINKneA1ByqE=
 github.com/sevir/gluaaws v0.1.1/go.mod h1:AbgPhReyOOER0BEzEj641qAQ3olbV3Hej5rRFYTCFzg=
+github.com/sevir/gluaaws v0.1.2 h1:hk8ZRTiOjOYEaNzDuQrm7dOh31nYYV1gOOVDzd4uYW8=
+github.com/sevir/gluaaws v0.1.2/go.mod h1:SrbQ2W+/cIKpDhCRh4nOk+6Vya5ft6cTh0rWAx30ocw=
 github.com/sevir/gluamdns v0.0.0-20250320205403-0d6bed771b48 h1:HYPqMNYlZk9oROXMgSh/Pq0K/yrfSDhOfJaEKPlAtqw=
 github.com/sevir/gluamdns v0.0.0-20250320205403-0d6bed771b48/go.mod h1:2iya7JY6pY/foojrLByictm2jySSBcukiBPZ4QPZpIw=
 github.com/sevir/gluawatch v0.0.0-20250320221401-808150c476cc h1:q0YpEFoqKjMCSeHS4ecuN3f39esyiwNiXccsKo2mKsk=

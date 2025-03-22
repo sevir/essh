@@ -1,5 +1,7 @@
 # Changelog
 
+## [Unreleased](https://github.com/sevir/essh/compare/v3.8.0...8413c8d94cb08843127e81de37f268c4f7bd662c) (2025-03-22)
+
 ## [v3.8.0](https://github.com/sevir/essh/compare/v3.7.2...v3.8.0) (2025-03-20)
 
 ### Features
