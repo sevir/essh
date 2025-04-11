@@ -2203,7 +2203,7 @@ _essh () {
                         _essh_tasks_options
                     elif [ "$tagsMode" = "on" ]; then
                         _essh_tags_options
-                    else {
+                    else
                         _essh_options
                         _files
                     fi

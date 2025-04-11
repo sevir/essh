@@ -149,6 +149,9 @@ Generate a changelog for the repo.
 
 ```
 convco changelog > CHANGELOG.md
+git add CHANGELOG.md
+git commit -m "Update changelog"
+git push
 ```
 
 ### release
