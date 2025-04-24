@@ -943,6 +943,17 @@ func Run(osArgs []string) (exitStatus int) {
 			return ExitErr
 		}
 
+		// detect arguments and pass them to lua script
+		argTable := L.NewTable()
+		scriptPath := os.Args[2]
+		L.SetTable(argTable, lua.LNumber(0), lua.LString(scriptPath))
+		luaArgs := os.Args[3:]
+		for i, arg := range luaArgs {
+			L.SetTable(argTable, lua.LNumber(i+1), lua.LString(arg))
+		}
+
+		L.SetGlobal("arg", argTable)
+
 		if err := L.DoFile(evalFileVar); err != nil {
 			//printError(err)
 			print(fmt.Sprintf("error in file %s: %v", evalFileVar, err))
