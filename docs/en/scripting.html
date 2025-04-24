@@ -66,6 +66,15 @@
 -- This is a comment
 print(&quot;Hello, world!&quot;)
 print(&quot;Essh is a Lua scripting engine.&quot;)
+-- Print the arguments passed to the script
+print(&quot;Arguments received by the Lua script:&quot;)
+if arg then
+    for i = 0, #arg do
+        print(&quot;arg[&quot; .. i .. &quot;] = &quot; .. tostring(arg[i]))
+    end
+else
+    print(&quot;No arguments found in the 'arg' table.&quot;)
+end
 </code></pre>
 
 <p>You can use all libraries included in Essh, see the <a href="/essh/docs/en/lua-vm.html">Lua VM</a> section.</p>
