@@ -832,6 +832,11 @@ print(jsontext)
 &lt;li&gt;&lt;code&gt;storage&lt;/code&gt;: &lt;a href=&#34;https://github.com/vadv/gopher-lua-libs/storage&#34;&gt;vadv/gopher-lua-libs/storage&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;tac&lt;/code&gt;: &lt;a href=&#34;https://github.com/vadv/gopher-lua-libs/tac&#34;&gt;vadv/gopher-lua-libs/tac&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;time&lt;/code&gt;: &lt;a href=&#34;https://github.com/vadv/gopher-lua-libs/time&#34;&gt;vadv/gopher-lua-libs/time&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;aws&lt;/code&gt;: &lt;a href=&#34;https://github.com/sevir/gluaaws&#34;&gt;sevir/gluaaws&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;watcher&lt;/code&gt;: &lt;a href=&#34;https://github.com/sevir/gluawatch&#34;&gt;sevir/gluawatch&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;mdns&lt;/code&gt;: &lt;a href=&#34;https://github.com/sevir/gluamdns&#34;&gt;sevir/gluamdns&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;gum&lt;/code&gt;: &lt;a href=&#34;https://github.com/sevir/gluagum&#34;&gt;sevir/gluagum&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ssh&lt;/code&gt;: &lt;a href=&#34;https://github.com/sevir/gluassh&#34;&gt;sevir/gluassh&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&#34;predefined-variables&#34;&gt;Predefined Variables&lt;/h2&gt;
@@ -1107,151 +1112,26 @@ For example, edit your &lt;code&gt;.esshconfig.lua&lt;/code&gt;.&lt;/p&gt;
     </item>
     
     <item>
-      <title>Tasks | Documentation</title>
-      <link>https://sevir.github.io/essh/docs/en/tasks.html</link>
+      <title>Scripting | Documentation</title>
+      <link>https://sevir.github.io/essh/docs/en/scripting.html</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://sevir.github.io/essh/docs/en/tasks.html</guid>
+      <guid>https://sevir.github.io/essh/docs/en/scripting.html</guid>
       <description>
 
-&lt;h1 id=&#34;tasks&#34;&gt;Tasks&lt;/h1&gt;
+&lt;h1 id=&#34;scripting&#34;&gt;Scripting&lt;/h1&gt;
 
-&lt;p&gt;Task is a script that runs on remote or local servers. You can use it to automate your system administration tasks.&lt;/p&gt;
+&lt;p&gt;You can use Essh as a Lua scripting engine in linux, using shebang &lt;code&gt;#!/usr/bin/env essh --eval-file&lt;/code&gt; in the first line of your script.&lt;/p&gt;
 
 &lt;h2 id=&#34;example&#34;&gt;Example&lt;/h2&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-lua&#34;&gt;task &amp;quot;example&amp;quot; {
-    description = &amp;quot;example task&amp;quot;,
-    
-    targets = {
-        &amp;quot;web&amp;quot;,
-    },
-    
-    filters = {
-        &amp;quot;production&amp;quot;,
-    },
-    
-    backend = &amp;quot;local&amp;quot;,
-    
-    parallel = true,
-    
-    prefix = true,
-    
-    script = {
-        &amp;quot;echo foo&amp;quot;,
-        &amp;quot;echo bar&amp;quot;
-    },
-}
+&lt;pre&gt;&lt;code class=&#34;language-lua&#34;&gt;#!/usr/bin/env essh --eval-file
+-- This is a comment
+print(&amp;quot;Hello, world!&amp;quot;)
+print(&amp;quot;Essh is a Lua scripting engine.&amp;quot;)
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Notice: Task name mustn&amp;rsquo;t be duplicated with any host names.&lt;/p&gt;
-
-&lt;p&gt;You can run a task below command.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ essh example
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;You can pass arguments to a task.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ essh example foo bar
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;properties&#34;&gt;Properties&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;&lt;code&gt;description&lt;/code&gt; (string): Description of the task.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;code&gt;pty&lt;/code&gt; (boolean): If it is true, SSH connection allocates pseudo-terminal by running ssh command with multiple -t options like &lt;code&gt;ssh -t -t&lt;/code&gt;.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;code&gt;driver&lt;/code&gt; (string): driver name is used in the task. see &lt;a href=&#34;drivers.html&#34;&gt;Drivers&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;code&gt;parallel&lt;/code&gt; (boolean): If it is true, runs task&amp;rsquo;s script in parallel.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;code&gt;privileged&lt;/code&gt; (boolean): If it is true, runs task&amp;rsquo;s script by privileged user. If you use it, you have to configure your machine to be able to be used &lt;code&gt;sudo&lt;/code&gt; without password.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;code&gt;user&lt;/code&gt; (string): Runs task&amp;rsquo;s script by specific user. If you use it, you have to configure your machine to be able to be used &lt;code&gt;sudo&lt;/code&gt; without password.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;code&gt;hidden&lt;/code&gt; (boolean): If it is true, this task is not displayed in tasks list.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;code&gt;targets&lt;/code&gt; (string|table): Host names or tags that the task&amp;rsquo;s scripts is executed for.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;code&gt;filters&lt;/code&gt; (string|table): Host names or tags to filter target hosts. This property must be used with &lt;code&gt;targets&lt;/code&gt;.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;code&gt;backend&lt;/code&gt; (string): A place where the task&amp;rsquo;s scripts will be executed on. You can set value only &lt;code&gt;remote&lt;/code&gt; or &lt;code&gt;local&lt;/code&gt;.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;code&gt;prefix&lt;/code&gt; (boolean|string): If it is true, Essh displays task&amp;rsquo;s output with hostname prefix. If it is string, Essh displays task&amp;rsquo;s output with custom prefix. This string can be used with text/template format like &lt;code&gt;{{.Host.Name}}&lt;/code&gt;.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;code&gt;prepare&lt;/code&gt; (function): Prepare is a function to be executed when the task starts. See example:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-lua&#34;&gt;prepare = function (t)
-    -- override task config
-    t.targets = &amp;quot;web&amp;quot;
-    -- get command line arguments
-    print(t.args[1])
-    -- cancel the task execution by returns false.
-    return false
-end,
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;By the prepare function returns false, you can cancel to execute the task&amp;rsquo;s script.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;code&gt;props&lt;/code&gt; (table): Props sets environment variables &lt;code&gt;ESSH_TASK_PROPS_${KEY}=VALUE&lt;/code&gt; when the task is executed. The table key is modified to upper cased.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-lua&#34;&gt;props = {
-    foo = &amp;quot;bar&amp;quot;,
-}
-
--- export ESSH_TASK_PROPS_FOO=&amp;quot;bar&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;code&gt;script&lt;/code&gt; (string|table): Code that will be executed. Example:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-lua&#34;&gt;script = [=[
-    echo aaa
-    echo bbb
-    echo ccc
-]=]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;or&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-lua&#34;&gt;script = {
-    &amp;quot;echo aaa&amp;quot;,
-    &amp;quot;echo bbb&amp;quot;,
-    &amp;quot;echo ccc&amp;quot;,
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;If you set it as a table, Essh concatenates strings in the table with newline code. And Essh runs the script as a bash script. But this is just default behavior. You can change it by &lt;a href=&#34;drivers.html&#34;&gt;Drivers&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;You can use predefined environment variables in your script, See below:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;&lt;code&gt;ESSH_TASK_NAME&lt;/code&gt;: Task name.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;code&gt;ESSH_SSH_CONFIG&lt;/code&gt;: Generated ssh_config file path.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;code&gt;ESSH_DEBUG&lt;/code&gt;: If you set &lt;code&gt;--debug&lt;/code&gt; option by CLI. this variable is set &amp;ldquo;1&amp;rdquo;.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;code&gt;ESSH_TASK_PROPS_${KEY}&lt;/code&gt;: The value that is set by task&amp;rsquo;s &lt;code&gt;props&lt;/code&gt;.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;code&gt;ESSH_TASK_ARGS_${INDEX}&lt;/code&gt;: The argument&amp;rsquo;s value that is passed by a command line arguments. The index starts at &amp;lsquo;1&amp;rsquo;.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;code&gt;ESSH_HOSTNAME&lt;/code&gt;: Host name.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;code&gt;ESSH_HOST_HOSTNAME&lt;/code&gt;: Host name.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;code&gt;ESSH_HOST_SSH_{SSH_CONFIG_KEY}&lt;/code&gt;: ssh_config key/value pare.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;code&gt;ESSH_HOST_TAGS_{TAG}&lt;/code&gt;: Tag. If you set a tag, This variable has a value &amp;ldquo;1&amp;rdquo;.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;code&gt;ESSH_HOST_PROPS_{KEY}&lt;/code&gt;: The value that is set by host&amp;rsquo;s &lt;code&gt;props&lt;/code&gt;. See &lt;a href=&#34;hosts.html&#34;&gt;Hosts&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;code&gt;ESSH_NAMESPACE_NAME&lt;/code&gt;: Namespace name. See &lt;a href=&#34;namespaces.html&#34;&gt;Namespaces&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;code&gt;script_file&lt;/code&gt; (string): A file path or URL that can be accessed by http or https. The file&amp;rsquo;s content will be executed. You can&amp;rsquo;t use &lt;code&gt;script_file&lt;/code&gt; and &lt;code&gt;script&lt;/code&gt; at the same time.&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;You can use all libraries included in Essh, see the &lt;a href=&#34;https://sevir.github.io/essh/essh/docs/en/lua-vm.html&#34;&gt;Lua VM&lt;/a&gt; section.&lt;/p&gt;
 </description>
     </item>
     

@@ -721,6 +721,11 @@ print(jsontext)
 &lt;li&gt;&lt;code&gt;storage&lt;/code&gt;: &lt;a href=&#34;https://github.com/vadv/gopher-lua-libs/storage&#34;&gt;vadv/gopher-lua-libs/storage&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;tac&lt;/code&gt;: &lt;a href=&#34;https://github.com/vadv/gopher-lua-libs/tac&#34;&gt;vadv/gopher-lua-libs/tac&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;time&lt;/code&gt;: &lt;a href=&#34;https://github.com/vadv/gopher-lua-libs/time&#34;&gt;vadv/gopher-lua-libs/time&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;aws&lt;/code&gt;: &lt;a href=&#34;https://github.com/sevir/gluaaws&#34;&gt;sevir/gluaaws&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;watcher&lt;/code&gt;: &lt;a href=&#34;https://github.com/sevir/gluawatch&#34;&gt;sevir/gluawatch&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;mdns&lt;/code&gt;: &lt;a href=&#34;https://github.com/sevir/gluamdns&#34;&gt;sevir/gluamdns&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;gum&lt;/code&gt;: &lt;a href=&#34;https://github.com/sevir/gluagum&#34;&gt;sevir/gluagum&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ssh&lt;/code&gt;: &lt;a href=&#34;https://github.com/sevir/gluassh&#34;&gt;sevir/gluassh&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&#34;predefined-variables&#34;&gt;Predefined Variables&lt;/h2&gt;
@@ -796,6 +801,30 @@ end
 &lt;pre&gt;&lt;code class=&#34;language-lua&#34;&gt;essh.debug(&amp;quot;foo&amp;quot;)
 &lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 &lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Scripting | Documentation</title>
+      <link>https://sevir.github.io/essh/docs/en/scripting.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://sevir.github.io/essh/docs/en/scripting.html</guid>
+      <description>
+
+&lt;h1 id=&#34;scripting&#34;&gt;Scripting&lt;/h1&gt;
+
+&lt;p&gt;You can use Essh as a Lua scripting engine in linux, using shebang &lt;code&gt;#!/usr/bin/env essh --eval-file&lt;/code&gt; in the first line of your script.&lt;/p&gt;
+
+&lt;h2 id=&#34;example&#34;&gt;Example&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-lua&#34;&gt;#!/usr/bin/env essh --eval-file
+-- This is a comment
+print(&amp;quot;Hello, world!&amp;quot;)
+print(&amp;quot;Essh is a Lua scripting engine.&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can use all libraries included in Essh, see the &lt;a href=&#34;https://sevir.github.io/essh/essh/docs/en/lua-vm.html&#34;&gt;Lua VM&lt;/a&gt; section.&lt;/p&gt;
 </description>
     </item>
     

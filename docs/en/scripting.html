@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Installation | Introduction | Essh - Extended ssh command</title>
+  <title>Scripting | Documentation | Essh - Extended ssh command</title>
   <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -56,46 +56,38 @@
           <section class="main-content">
             
 
-<h1 id="installation">Installation</h1>
+<h1 id="scripting">Scripting</h1>
 
-<p>Essh is provided as a single binary. You can download it and drop it in your $PATH.</p>
+<p>You can use Essh as a Lua scripting engine in linux, using shebang <code>#!/usr/bin/env essh --eval-file</code> in the first line of your script.</p>
 
-<p><a href="https://github.com/kohkimakimoto/essh/releases/latest">Download latest version</a></p>
+<h2 id="example">Example</h2>
 
-<p>After installing Essh, run the <code>essh</code> without any options in your terminal to check working.</p>
-
-<pre><code>$ essh
-Usage: essh [&lt;options&gt;] [&lt;ssh options and args...&gt;]
-
-Essh is an extended ssh command.
-version 0.87.0 (611624e6cb12e8add4494fd05e106bcdc701f9c3)
-
-Copyright (c) Kohki Makimoto &lt;kohki.makimoto@gmail.com&gt;
-The MIT License (MIT)
-
-See more detail, use '--help'.
-
+<pre><code class="language-lua">#!/usr/bin/env essh --eval-file
+-- This is a comment
+print(&quot;Hello, world!&quot;)
+print(&quot;Essh is a Lua scripting engine.&quot;)
 </code></pre>
 
-<p>Let&rsquo;s read next section: <a href="using-as-a-ssh-client.html">Using As A SSH Client</a>.</p>
+<p>You can use all libraries included in Essh, see the <a href="/essh/docs/en/lua-vm.html">Lua VM</a> section.</p>
 
           </section>
         </div>
         <div class="col-sm-3 col-sm-pull-9">
           <section class="side-menu">
   <ul>
-    <li><a href="index.html">Introduction</a></li>
-    <li><a href="installation.html">Installation</a></li>
-    <li><a href="using-as-a-ssh-client.html">Using As A SSH Client</a></li>
-    <li><a href="zsh-completion.html">Zsh Completion</a></li>
-    <li><a href="using-hooks.html">Using Hooks</a></li>
-    <li><a href="managing-hosts.html">Managing Hosts</a></li>
-    <li><a href="running-commands.html">Running Commands</a></li>
-    <li><a href="running-tasks.html">Running Tasks</a></li>
-    <li><a href="using-lua-libraries.html">Using Lua Libraries</a></li>
-    <li><a href="using-drivers.html">Using Drivers</a></li>
+    <li><a href="index.html">Documentation</a></li>
+    <li><a href="configuration-files.html">Configuration Files</a></li>
+    <li><a href="hosts.html">Hosts</a></li>
+    <li><a href="tasks.html">Tasks</a></li>
+    <li><a href="lua-vm.html">Lua VM</a></li>
+    <li><a href="cli-options.html">CLI Options</a></li>
+    <li><a href="drivers.html">Drivers</a></li>
+    <li><a href="groups.html">Groups</a></li>
+    <li><a href="integrating-other-tools.html">Integrating Other Tools</a></li>
+    <li><a href="scripting.html">Scripting</a></li>
   </ul>
 </section>
+
 
         </div>
 
