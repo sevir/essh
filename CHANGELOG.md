@@ -1,5 +1,14 @@
 # Changelog
 
+## [Unreleased](https://github.com/sevir/essh/compare/v3.8.2...a6daa43f95cffd4014422cc6314dedfea1e232b8) (2025-04-24)
+
+### [v3.8.2](https://github.com/sevir/essh/compare/v3.8.1...v3.8.2) (2025-04-12)
+
+#### Fixes
+
+* **zsh-completion:** Fix zsh completion script
+([8544b04](https://github.com/sevir/essh/commit/8544b04b1d747d751d39022f2a8e08b508bff1ba))
+
 ### [v3.8.1](https://github.com/sevir/essh/compare/v3.8.0...v3.8.1) (2025-03-22)
 
 ## [v3.8.0](https://github.com/sevir/essh/compare/v3.7.2...v3.8.0) (2025-03-20)
