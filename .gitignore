@@ -14,5 +14,6 @@ Vagrantfile
 .essh
 .esshconfig_override.lua
 node_modules/
-
 !.gitkeep
+.kvagerc
+kvagerc
