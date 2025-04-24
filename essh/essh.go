@@ -944,7 +944,8 @@ func Run(osArgs []string) (exitStatus int) {
 		}
 
 		if err := L.DoFile(evalFileVar); err != nil {
-			printError(err)
+			//printError(err)
+			print(fmt.Sprintf("error in file %s: %v", evalFileVar, err))
 			return ExitErr
 		}
 

@@ -53,6 +53,11 @@ The following are the built-in libraries that are included in Essh.
 * `storage`: [vadv/gopher-lua-libs/storage](https://github.com/vadv/gopher-lua-libs/storage)
 * `tac`: [vadv/gopher-lua-libs/tac](https://github.com/vadv/gopher-lua-libs/tac)
 * `time`: [vadv/gopher-lua-libs/time](https://github.com/vadv/gopher-lua-libs/time)
+* `aws`: [sevir/gluaaws](https://github.com/sevir/gluaaws)
+* `watcher`: [sevir/gluawatch](https://github.com/sevir/gluawatch)
+* `mdns`: [sevir/gluamdns](https://github.com/sevir/gluamdns)
+* `gum`: [sevir/gluagum](https://github.com/sevir/gluagum) 
+* `ssh`: [sevir/gluassh](https://github.com/sevir/gluassh)
 
 ## Predefined Variables
 
